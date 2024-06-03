@@ -1,0 +1,6 @@
+﻿@model List<CategoryDto>
+
+    @foreach(var item in Model)
+    {
+            <li><a asp-controller="Home" asp-action="SearchCategories" asp-route-keyWord="@item.Name">- @item.Name</a></li>
+    }

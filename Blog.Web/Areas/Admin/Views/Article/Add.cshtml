@@ -1,0 +1,97 @@
+﻿
+@model ArticleAddDto
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Article /</span> Create Article</h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <h5 class="card-header"></h5>
+                <form asp-controller="Article" asp-action="Add" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div class="form-group">
+
+                            <label asp-for="CategoryId">Category</label>
+                            <a  class="btn text-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                Add <i class="bx bx-plus"></i>
+                            </a>
+
+
+                            <select id="categoryList" class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","Name"))"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="defaultFormControlInput" class="form-label">Title</label>
+                            <input asp-for="Title" type="text" class="form-control mb-3" id="defaultFormControlInput" placeholder="Title" aria-describedby="defaultFormControlHelp" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="defaultFormControlInput" class="form-label">Content</label>
+                            <textarea asp-for="Content" type="text" class="form-control mb-3" id="defaultFormControlInput" placeholder="Content" style="min-height:250px;" aria-describedby="defaultFormControlHelp" > </textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="defaultFormControlInput" class="form-label">Cover Image</label>
+                            <input asp-for="Photo" type="file" accept="image/*" class="form-control mb-3" id="defaultFormControlInput"   aria-describedby="defaultFormControlHelp"> 
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+
+                                  <button type="submit" class="btn btn-primary btn-block">Create</button>
+                        <div class="form-group"></div>
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Category</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="d-block form-label">Category Name</label>
+                        <input class="form-control" type="text" id="categoryName">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" data-keyboard="false" class="btn btn-primary" id="btnSave">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                        @section Scripts
+                        {
+                                   <script src="~/js/categoryAdd.js"></script>
+                               <script>
+                                     var app = app || {};
+                                     app.Urls = app.Urls || {};
+
+                                     app.Urls.baseUrl = '@Url.Content("~")';
+                                     app.Urls.categoryAddUrl = "@(Url.Action("AddWithAjax", "Category"))";
+                                     app.Urls.articleAddUrl = "@(Url.Action("Add", "Article"))";
+                               </script>
+                        }
